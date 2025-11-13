@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <div class="calculator">
+        <input type="text" class="calculator-display" value="0" readonly>
+
+        <div class="calculator-keys">
+            <button class="key-function clear">C</button>
+            <button class="key-function">(</button>
+            <button class="key-function">)</button>
+            <button class="key-operator">/</button>
+
+            <button class="key-number">7</button>
+            <button class="key-number">8</button>
+            <button class="key-number">9</button>
+            <button class="key-operator">*</button>
+
+            <button class="key-number">4</button>
+            <button class="key-number">5</button>
+            <button class="key-number">6</button>
+            <button class="key-operator">-</button>
+
+            <button class="key-number">1</button>
+            <button class="key-number">2</button>
+            <button class="key-number">3</button>
+            <button class="key-operator">+</button>
+
+            <button class="key-number zero">0</button> <button class="key-number">.</button> <button
+                class="key-result">=</button>
+        </div>
+    </div>
+
+    <div class="log-section">
+        <button id="btn-toggle-log">Ver Histórico</button>
+        <div id="log-container" style="display: none;">
+            <h3>Histórico de Cálculos</h3>
+            <ul id="log-lista"></ul>
+        </div>
+    </div>
+
+</body>
+
+</html>

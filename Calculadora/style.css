@@ -1,0 +1,168 @@
+/* Configurações básicas da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* O contêiner principal da calculadora */
+.calculator {
+    width: 320px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: #3a3a3a; /* Fundo mais escuro para destacar os botões */
+    overflow: hidden;
+}
+
+/* A tela (display) da calculadora */
+.calculator-display {
+    width: 100%;
+    height: 80px;
+    background-color: #222;
+    color: #fff;
+    font-size: 2.5rem;
+    text-align: right;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box; /* Garante que o padding não afete a largura total */
+}
+
+/* O contêiner para a grade de botões */
+.calculator-keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    
+    /* 1. Adicionando espaçamento (gap) entre os botões */
+    gap: 10px; 
+    
+    /* Adicionando espaçamento interno ao contêiner dos botões */
+    padding: 10px; 
+}
+
+/* Estilo geral dos botões */
+button {
+    height: 65px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: none;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    
+    /* 2. Deixando os cantos arredondados */
+    border-radius: 8px; 
+    
+    /* Sombra suave para dar profundidade */
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Efeito ao passar o mouse */
+button:hover {
+    opacity: 0.9;
+}
+
+/* Efeito ao clicar (pressionar) */
+button:active {
+    background-color: #ddd;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15); /* Efeito de pressionar */
+}
+
+/* Estilo para botões numéricos (cinza claro) */
+.key-number {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+/* Estilo para botões de resultado (laranja) */
+.key-result {
+    background-color: #5df312;
+    color: white;
+}
+.key-result:active {
+    background-color: #00d33f;
+}
+
+/* Estilo para botões de operação (laranja) */
+.key-operator {
+    background-color: #f39c12;
+    color: white;
+}
+.key-operator:active {
+    background-color: #d38100;
+}
+
+/* Estilo para botões de função (cinza médio) */
+.key-function {
+    background-color: #b0b0b0;
+    color: #222;
+}
+.key-function:active {
+    background-color: #9a9a9a;
+}
+
+/* Estilo específico para o botão 'C' (Limpar) */
+.key-function.clear {
+    background-color: #e74c3c;
+    color: white;
+}
+.key-function.clear:active {
+    background-color: #c0392b;
+}
+
+/* Estilo para o botão '0', fazendo-o ocupar 2 colunas */
+.key-number.zero {
+    grid-column: span 2; 
+}
+
+/*
+ * ==========================================================
+ * CSS PARA A SEÇÃO DE LOG (BÔNUS 4.3)
+ * ==========================================================
+*/
+.log-section {
+    max-width: 320px; /* Mesma largura da calculadora */
+    margin: 20px auto;
+    width: 100%;
+}
+
+#btn-toggle-log {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px; /* Combinando com o estilo dos outros botões */
+}
+
+#btn-toggle-log:active {
+     background-color: #0069d9;
+     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+#log-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    color: #333; /* Cor do texto para o log */
+}
+
+#log-lista li {
+    font-family: monospace;
+    font-size: 0.9em;
+    padding: 5px 0;
+    border-bottom: 1px dashed #ddd;
+    list-style: none; /* Remove bullets */
+}
+
+#log-lista {
+    padding-left: 0; /* Remove padding da lista */
+}
