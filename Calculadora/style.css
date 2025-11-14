@@ -14,7 +14,7 @@ body {
     width: 320px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    background-color: #3a3a3a; /* Fundo mais escuro para destacar os botões */
+    background-color: #3a3a3a;
     overflow: hidden;
 }
 
@@ -28,18 +28,14 @@ body {
     text-align: right;
     padding: 20px;
     border: none;
-    box-sizing: border-box; /* Garante que o padding não afete a largura total */
+    box-sizing: border-box; 
 }
 
 /* O contêiner para a grade de botões */
 .calculator-keys {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    
-    /* 1. Adicionando espaçamento (gap) entre os botões */
     gap: 10px; 
-    
-    /* Adicionando espaçamento interno ao contêiner dos botões */
     padding: 10px; 
 }
 

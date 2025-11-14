@@ -1,28 +1,21 @@
-/*
- * ==========================================================
- * PARTE 1: LÓGICA RPN (CAMINHO 1 - DIY)
- * Esta é a lógica de cálculo principal exigida pelo trabalho.
- * (Copiada da especificação do trabalho)
- * ==========================================================
- */
 
 /**
- * Função principal que o seu botão "=" deve chamar.
- * @param {string} expressionString - Ex: "2+(3*4)"
+ * Função principal que o botão "=" deve chamar.
+ * @param {string} expressionString
  * @returns {number|string} - O resultado ou uma mensagem de erro.
  */
 function calcularExpressao(expressionString) {
     try {
-        // 1. Tokenizar: Transforma a string em um array de "tokens"
+        // Tokenizar: Transforma a string em um array de "tokens"
         const tokens = tokenizar(expressionString);
         
-        // 2. Converter: Transforma os tokens infixos em RPN (pós-fixos)
+        // Converter: Transforma os tokens infixos em RPN (pós-fixos)
         const rpnTokens = infixToRpn(tokens);
         
-        // 3. Avaliar: Calcula o resultado a partir dos tokens RPN
+        // Avaliar: Calcula o resultado a partir dos tokens RPN
         const resultado = avaliarRpn(rpnTokens);
         
-        // Arredonda resultados com muitas casas decimais (ex: 0.1 + 0.2)
+        // Arredonda resultados com muitas casas decimais
         if (String(resultado).includes('.') && String(resultado).split('.')[1].length > 8) {
             return parseFloat(resultado.toFixed(8));
         }
@@ -30,15 +23,12 @@ function calcularExpressao(expressionString) {
         return resultado;
     } catch (error) {
         console.error("Erro no cálculo:", error.message);
-        return "Erro"; // Retorna 'Erro' para o visor
+        return "Erro";
     }
 }
 
-/**
- * Etapa 1: Tokenizar a expressão
- */
 function tokenizar(expression) {
-    // Regex para encontrar números (incluindo decimais) OU operadores/parênteses
+    // Regex para encontrar números ou operadores/parênteses
     const regex = /(\d+\.?\d*|\.\d+|[+\-*/()])/g;
     
     // Insere um '0' antes de um '-' ou '+' no início (ex: -5+2 -> 0-5+2)
@@ -53,9 +43,6 @@ function tokenizar(expression) {
 }
 
 
-/**
- * Etapa 2: Algoritmo Shunting-Yard (Infixo para RPN)
- */
 function infixToRpn(tokens) {
     const filaSaida = [];
     const pilhaOperadores = [];
@@ -95,7 +82,7 @@ function infixToRpn(tokens) {
             if (pilhaOperadores.length === 0) {
                 throw new Error("Parênteses desbalanceados");
             }
-            pilhaOperadores.pop(); // Descarta o "("
+            pilhaOperadores.pop();
         }
     }
 
@@ -110,9 +97,7 @@ function infixToRpn(tokens) {
     return filaSaida;
 }
 
-/**
- * Etapa 3: Avaliar a expressão RPN
- */
+
 function avaliarRpn(rpnTokens) {
     const pilha = [];
 
@@ -155,25 +140,16 @@ function avaliarRpn(rpnTokens) {
     return pilha[0];
 }
 
-
-/*
- * ==========================================================
- * PARTE 2: INTEGRAÇÃO COM O FRONT-END (ADAPTADO)
- * Lógica para conectar os botões do seu HTML às funções.
- * ==========================================================
- */
-
-// Setup Inicial (DOMContentLoaded)
+// Setup Inicial
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. Lógica principal da Calculadora
+    // Lógica principal da Calculadora
     const visor = document.querySelector('.calculator-display');
     const botoes = document.querySelectorAll('.calculator-keys button');
 
-    // Adiciona um 'ouvinte' para CADA botão
     botoes.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Pega o valor do botão (ex: "7", "+", "C")
+            // Pega o valor do botão
             const valor = btn.textContent; 
 
             if (btn.classList.contains('key-result')) {
@@ -185,28 +161,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 limparVisor();
             } 
             else {
-                // Para todos os outros botões (números, operadores, parênteses)
+                // Para todos os outros botões
                 adicionarAoVisor(valor);
             }
         });
     });
 
-    // 2. Lógica do Bônus (Log/Histórico)
-    // Busca o botão de log (que você precisa adicionar ao HTML)
+    // Lógica do Histórico
     const btnToggleLog = document.getElementById('btn-toggle-log');
     
     if (btnToggleLog) {
         btnToggleLog.addEventListener('click', toggleLog);
     } else {
-        // Aviso caso o HTML do bônus não seja encontrado
-        console.warn("Elemento #btn-toggle-log não encontrado. A funcionalidade de Histórico (Bônus) não será iniciada.");
+        console.warn("Elemento #btn-toggle-log não encontrado. A funcionalidade de Histórico não será iniciada.");
     }
 });
 
-/**
- * Adiciona o valor do botão ao visor.
- * (Adaptado para o visor '.calculator-display')
- */
+
 function adicionarAoVisor(valor) {
     const visor = document.querySelector('.calculator-display');
     const valorAtual = visor.value;
@@ -219,7 +190,6 @@ function adicionarAoVisor(valor) {
         }
         visor.value = valor;
     } else {
-        // Desafio do trabalho: Impedir múltiplos pontos (ex: 2.5.3)
         if (valor === '.') {
             const partes = valorAtual.split(/[+\-*/()]/);
             const ultimoNumero = partes[partes.length - 1];
@@ -232,48 +202,30 @@ function adicionarAoVisor(valor) {
     }
 }
 
-/**
- * Limpa o visor, voltando ao '0' inicial.
- * (Adaptado para o visor '.calculator-display')
- */
 function limparVisor() {
     const visor = document.querySelector('.calculator-display');
-    visor.value = '0'; // O padrão do seu HTML é '0'
+    visor.value = '0';
 }
 
-/**
- * Função de Cálculo Principal (chamada pelo botão =)
- * (Adaptado para o visor '.calculator-display')
- */
 function calcular() {
     const visor = document.querySelector('.calculator-display');
     const expressao = visor.value;
 
     if (!expressao || expressao === 'Erro') return; 
 
-    // 1. Chama a implementação do Caminho 1
+    // Chama a implementação do Caminho 1
     const resultado = calcularExpressao(expressao);
 
-    // 2. Mostra o resultado no visor
+    // Mostra o resultado no visor
     visor.value = resultado;
 
-    // 3. Chame a função de Log (Bônus)
+    // Chame a função de Log 
     if (String(resultado) !== "Erro") {
         salvarNoLog(expressao, resultado);
     }
 }
 
 
-/*
- * ==========================================================
- * PARTE 3: FUNCIONALIDADE EXTRA - HISTÓRICO (SEÇÃO 4)
- * Código-fonte copiado diretamente do documento da atividade.
- * ==========================================================
- */
-
-/**
- * Salva a expressão e o resultado no localStorage.
- */
 function salvarNoLog(expressao, resultado) {
     const agora = new Date();
     const dataFormatada = agora.toLocaleDateString('pt-BR');
@@ -290,9 +242,7 @@ function salvarNoLog(expressao, resultado) {
     localStorage.setItem('calculadora_logs', JSON.stringify(logs));
 }
 
-/**
- * Mostra ou esconde o contêiner do log e o popula.
- */
+
 function toggleLog() {
     const logContainer = document.getElementById('log-container');
     const btnToggleLog = document.getElementById('btn-toggle-log');
@@ -308,19 +258,17 @@ function toggleLog() {
     } else {
         logContainer.style.display = 'block';
         btnToggleLog.textContent = 'Esconder Histórico';
-        carregarLogs(); // Popula o log toda vez que é aberto
+        carregarLogs();
     }
 }
 
-/**
- * Lê os logs do localStorage e os exibe na lista <ul>.
- */
+
 function carregarLogs() {
     const logLista = document.getElementById('log-lista');
-    if (!logLista) return; // Segurança caso o HTML não exista
+    if (!logLista) return;
 
     const logs = JSON.parse(localStorage.getItem('calculadora_logs')) || [];
-    logLista.innerHTML = ''; // Limpa a lista antiga
+    logLista.innerHTML = '';
 
     if (logs.length === 0) {
         logLista.innerHTML = '<li>Nenhum histórico salvo.</li>';
