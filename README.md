@@ -31,7 +31,7 @@ A principal vantagem desta abordagem é a avaliação precisa de expressões com
 
 Para testar a aplicação agora mesmo, basta clicar no link abaixo:
 
-👉 **[Abrir Calculadora RPN](https://cfsc3.github.io/Calculadora/)**
+👉 **[Abrir Calculadora RPN](https://cfsc3.github.io/Calculadora-RPN/Calculadora/index.html)**
 
 Caso queira rodar localmente:
 1. Clone este repositório.
